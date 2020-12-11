@@ -166,3 +166,8 @@ display(df)
 sql_statement = "select Hospital.COUNTY, sum(HOSPITALIZED_COVID_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) as Total_Covid_Patients from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY group by Hospital.COUNTY order by Total_Covid_Patients desc LIMIT 32"
 df = pd.read_sql_query(sql_statement, conn)
 display(df)
+
+#the date with the highest amount, showing what county had the most, and the estimate amount of new covid patients that day
+sql_statement = "select Hospital.COUNTY, Hospital.DATE, sum(HOSPITALIZED_COVID_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) as Total_Covid_Patients, sum(HOSPITALIZED_SUSPECTED_COVID_PATIENTS + ICU_SUSPECTED_COVID_PATIENTS + TRAILERS_REQUESTED) as Estimated_Growing_Rate from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY group by Hospital.DATE order by Total_Covid_Patients desc"
+df = pd.read_sql_query(sql_statement, conn)
+display(df)
