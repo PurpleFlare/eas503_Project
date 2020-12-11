@@ -157,7 +157,12 @@ df.plot(kind = 'bar')
 
 sql_statement = "select sum(HOSPITALIZED_COVD_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY"
 
-
+#date with highest amount
 sql_statement = "select Homeless.DATE, sum(HOSPITALIZED_COVID_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) as Total_Covid_Patients from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY group by Homeless.DATE order by Total_Covid_Patients"
+df = pd.read_sql_query(sql_statement, conn)
+display(df)
+
+#county with the highest amount
+sql_statement = "select Hospital.COUNTY, sum(HOSPITALIZED_COVID_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) as Total_Covid_Patients from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY group by Hospital.COUNTY order by Total_Covid_Patients desc LIMIT 32"
 df = pd.read_sql_query(sql_statement, conn)
 display(df)
