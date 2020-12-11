@@ -156,3 +156,8 @@ df.plot(kind = 'bar')
 
 
 sql_statement = "select sum(HOSPITALIZED_COVD_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY"
+
+
+sql_statement = "select Homeless.DATE, sum(HOSPITALIZED_COVID_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) as Total_Covid_Patients from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY group by Homeless.DATE order by Total_Covid_Patients"
+df = pd.read_sql_query(sql_statement, conn)
+display(df)
