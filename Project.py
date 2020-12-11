@@ -155,3 +155,4 @@ plt.figure();
 df.plot(kind = 'bar')
 
 
+sql_statement = "select sum(HOSPITALIZED_COVD_CONFIRMED_PATIENTS + ICU_COVID_CONFIRMED_PATIENTS + ROOM_OCCUPIED) from Hospital left join Homeless on Hospital.COUNTY=Homeless.COUNTY"
